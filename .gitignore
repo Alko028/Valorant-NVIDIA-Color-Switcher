@@ -1,0 +1,15 @@
+# Local build outputs
+*.exe
+*.pdb
+bin/
+obj/
+
+# Machine-specific diagnostics
+diagnostic.txt
+
+# Editor and OS files
+.vs/
+.vscode/
+*.user
+Thumbs.db
+Desktop.ini
