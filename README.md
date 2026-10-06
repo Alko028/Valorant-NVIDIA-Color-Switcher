@@ -8,6 +8,8 @@
 
 实现不会向 VALORANT 注入 DLL，也不会读取/修改游戏内存；它只调用 NVIDIA 显示接口和 Windows 进程列表。
 
+程序的任务栏、文件和系统托盘图标来自 `assets/app-icon.ico`。
+
 ## 安装
 
 右键 `install.ps1`，选择“使用 PowerShell 运行”。它会：

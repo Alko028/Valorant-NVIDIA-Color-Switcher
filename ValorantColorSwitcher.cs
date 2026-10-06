@@ -246,6 +246,7 @@ internal sealed class SwitcherContext : ApplicationContext
 {
     private readonly NotifyIcon tray;
     private readonly System.Windows.Forms.Timer timer;
+    private readonly Icon appIcon;
     private NvApiColorController controller;
     private SwitcherSettings settings;
     private DateTime settingsStamp;
@@ -312,7 +313,8 @@ internal sealed class SwitcherContext : ApplicationContext
         menu.Items.Add(exitItem);
 
         tray = new NotifyIcon();
-        tray.Icon = SystemIcons.Application;
+        appIcon = LoadApplicationIcon();
+        tray.Icon = appIcon ?? SystemIcons.Application;
         tray.Text = "VALORANT NVIDIA 颜色自动切换";
         tray.ContextMenuStrip = menu;
         tray.Visible = true;
@@ -484,6 +486,19 @@ internal sealed class SwitcherContext : ApplicationContext
         }
     }
 
+    private static Icon LoadApplicationIcon()
+    {
+        try
+        {
+            return Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+        }
+        catch (Exception ex)
+        {
+            Log.Write("Could not load application icon: " + ex.Message);
+            return null;
+        }
+    }
+
     protected override void ExitThreadCore()
     {
         if (exiting)
@@ -507,6 +522,7 @@ internal sealed class SwitcherContext : ApplicationContext
         SystemEvents.PowerModeChanged -= OnPowerModeChanged;
         tray.Visible = false;
         tray.Dispose();
+        if (appIcon != null) appIcon.Dispose();
         timer.Dispose();
         controller.Dispose();
         base.ExitThreadCore();
