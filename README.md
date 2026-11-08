@@ -1,4 +1,4 @@
-# VALORANT / Riot Client NVIDIA 颜色自动切换
+# NVIDIA 颜色自动切换
 
 程序会在后台每秒检查一次进程：
 
